@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                createNotification();
+                sendNotification(v);
             }
 
         });
@@ -58,37 +58,22 @@ public class MainActivity extends AppCompatActivity {
         RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.notification_small);
         contentView.setTextViewText(R.id.not_text1, "Custom notification");
 
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.androidauthority.com/"));
+        Intent intent = new Intent(main, MainActivity.class);
+                //new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.androidauthority.com/"));
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
+        
         mBuilder.setContentIntent(pendingIntent);
 
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setContentTitle("My notification");
         mBuilder.setContentText("Hello World!");
+        mBuilder.addAction(R.mipmap.ic_launcher, "BUTTON 1", pendingIntent);
+        mBuilder.addAction(R.mipmap.ic_launcher, "BUTTON 2", pendingIntent);
+        mBuilder.addAction(R.mipmap.ic_launcher, "BUTTON 3", pendingIntent);
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(main.NOTIFICATION_SERVICE);
-
         mNotificationManager.notify(001, mBuilder.build());
     }
 
-    private void createNotification(Intent intent)
-    {
-        Notification notification = new Notification.Builder(main)
-                // Show controls on lock screen even when user hides sensitive content.
-                .setSmallIcon(R.mipmap.ic_launcher)
-                //HERE ARE YOUR BUTTONS
-                .addAction(R.mipmap.ic_launcher, "BUTTON 1", intent) // #0
-                .addAction(R.mipmap.ic_launcher, "BUTTON 2", intent)  // #1
-                .addAction(R.mipmap.ic_launcher, "BUTTON 3", intent)     // #2
-                // Apply the media style template
-                .setStyle(new Notification.MediaStyle()
-                        .setShowActionsInCompactView(1)
-                        .setMediaSession(mMediaSession.getSessionToken())
-                        .setContentTitle("Example for you")
-                        .setContentText("Example for you")
-                        .setLargeIcon(ButtonExampleIcon)
-                        .build();
-
-    }
 }
