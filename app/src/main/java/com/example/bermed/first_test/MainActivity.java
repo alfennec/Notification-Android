@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 //new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.androidauthority.com/"));
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
-        
+
         mBuilder.setContentIntent(pendingIntent);
 
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
